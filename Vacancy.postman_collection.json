@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "bdc3ef4e-bcd2-4fe7-bf04-867f110c5deb",
+		"name": "Vacancy",
+		"description": "### 🔍 Introduction\n\nThis API provides backend services for a **recruitment application** designed to support job vacancy management. The API allows **admins** to post, update, and delete job vacancies, while **candidates** can browse only active job postings (i.e., vacancies that have not expired).\n\n⚙️ Built with **Java Spring Boot** and **MongoDB**, this API is a part of a technical assessment for a backend developer role at **Jobseeker Company**.\n\n### 🔐 Authentication\n\n- Admins must **register** and **log in** to manage job postings.\n    \n- Auth endpoints use JSON-based payloads for authentication.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16689378"
+	},
+	"item": [
+		{
+			"name": "Get Active Vacancies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTc0NzMyMDgyMywiZXhwIjoxNzQ3NDA3MjIzfQ.krUN6G8LlzKgW8PffyJUgJeUJC0r800Gst9e6QkaUgo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}vacancies/active",
+					"host": [
+						"{{base_url}}vacancies"
+					],
+					"path": [
+						"active"
+					]
+				},
+				"description": "This is a GET request and it is used to get **active** vacancies (public).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response of JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Vacancies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTc0NzMyMDgyMywiZXhwIjoxNzQ3NDA3MjIzfQ.krUN6G8LlzKgW8PffyJUgJeUJC0r800Gst9e6QkaUgo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}vacancies",
+					"host": [
+						"{{base_url}}vacancies"
+					]
+				},
+				"description": "This is a GET request and it is used to get **all** vacancies (admin only).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response of JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"admin1\",\n  \"password\": \"admin123\",\n  \"role\": \"ADMIN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}auth/register",
+					"host": [
+						"{{base_url}}auth"
+					],
+					"path": [
+						"register"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request register user data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"admin1\",\n  \"password\": \"admin123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}auth/login",
+					"host": [
+						"{{base_url}}auth"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request user login, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Vacancy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTc0NzMyMDgyMywiZXhwIjoxNzQ3NDA3MjIzfQ.krUN6G8LlzKgW8PffyJUgJeUJC0r800Gst9e6QkaUgo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Senior Java Developer\",\n  \"description\": \"We are looking for an experienced Java developer to join our team and work on challenging projects.\",\n  \"maxAge\": 45,\n  \"minExperience\": 5,\n  \"salary\": 85000.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}vacancies",
+					"host": [
+						"{{base_url}}vacancies"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request Create new vacancy data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Update data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTc0NzMxOTM0MywiZXhwIjoxNzQ3NDA1NzQzfQ.80iu5FGfU_erMEld2nZtVE0lzDRjCtf1oE8LtJo7UDQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Expired Role\",\n  \"description\": \"This job should no longer be visible in active listings.\",\n  \"maxAge\": 40,\n  \"minExperience\": 2,\n  \"salary\": 60000,\n  \"expiryDate\": \"2023-01-01\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}vacancies/{{id}}",
+					"host": [
+						"{{base_url}}vacancies"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "This is a PUT request and it is used to overwrite an existing vacancy data. For instance, after you create a vacancy data with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTc0NzMxOTM0MywiZXhwIjoxNzQ3NDA1NzQzfQ.80iu5FGfU_erMEld2nZtVE0lzDRjCtf1oE8LtJo7UDQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}vacancies/{{id}}",
+					"host": [
+						"{{base_url}}vacancies"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "This is a DELETE request, and it is used to delete vacancy that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "682600059b8ce53d8f3686c0"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api/"
+		}
+	]
+}
